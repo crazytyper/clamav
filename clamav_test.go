@@ -11,6 +11,11 @@ import (
 	"testing"
 )
 
+var stdopts = &ScanOptions{
+	General: ScanGeneralAllmatches,
+	Parse:   0xFFFF,
+}
+
 func TestRetflevel(t *testing.T) {
 	s := Retflevel()
 	if s < 66 {
@@ -222,7 +227,7 @@ func TestGetSetString(tt *testing.T) {
 				tt.Errorf("GetString: (%d) %v: %v", t, v.set, err)
 			}
 			if v.match && n != v.want {
-				tt.Errorf("GetString: (%d) %v want %d", t, n, v.want)
+				tt.Errorf("GetString: (%d) %v want %v", t, n, v.want)
 			}
 		}
 	}
@@ -242,7 +247,7 @@ func test1(tt *testing.T, eng *Engine, fld EngineField, s string) {
 		tt.Errorf("GetString: (%d) %s: %v", fld, ns, err)
 	}
 	if s != ns {
-		tt.Errorf("GetString: (%d) %s want %d", fld, s, ns)
+		tt.Errorf("GetString: (%d) %s want %v", fld, s, ns)
 	}
 }
 
@@ -306,54 +311,54 @@ var scanFiles = []struct {
 	dir, file, name string
 	scan            uint
 }{
-	{"testdata", "clam-aspack.exe", "ClamAV-Test-File", 20},
-	{"testdata", "clam-fsg.exe", "ClamAV-Test-File", 4},
-	{"testdata", "clam-mew.exe", "ClamAV-Test-File", 20},
-	{"testdata", "clam-nsis.exe", "ClamAV-Test-File", 48},
-	{"testdata", "clam-pespin.exe", "ClamAV-Test-File", 20},
-	{"testdata", "clam-petite.exe", "ClamAV-Test-File", 8},
-	{"testdata", "clam-upack.exe", "ClamAV-Test-File", 16},
-	{"testdata", "clam-upx.exe", "ClamAV-Test-File", 20},
-	{"testdata", "clam-v2.rar", "ClamAV-Test-File", 0},
-	{"testdata", "clam-v3.rar", "ClamAV-Test-File", 0},
-	{"testdata", "clam-wwpack.exe", "ClamAV-Test-File", 24},
-	{"testdata", "clam-yc.exe", "ClamAV-Test-File", 24},
-	{"testdata", "clam.7z", "ClamAV-Test-File", 0},
-	{"testdata", "clam.arj", "ClamAV-Test-File", 0},
-	{"testdata", "clam.bin-be.cpio", "ClamAV-Test-File", 0},
-	{"testdata", "clam.bin-le.cpio", "ClamAV-Test-File", 0},
-	{"testdata", "clam.bz2.zip", "ClamAV-Test-File", 0},
-	{"testdata", "clam.cab", "ClamAV-Test-File", 0},
-	{"testdata", "clam.chm", "ClamAV-Test-File", 4},
-	{"testdata", "clam.d64.zip", "ClamAV-Test-File", 0},
-	{"testdata", "clam.ea05.exe", "ClamAV-Test-File", 232},
-	{"testdata", "clam.ea06.exe", "ClamAV-Test-File", 268},
-	{"testdata", "clam.exe", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.binhex", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.bz2", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.html", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.mbox.base64", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.mbox.uu", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.rtf", "ClamAV-Test-File", 0},
-	{"testdata", "clam.exe.szdd", "ClamAV-Test-File", 0},
-	{"testdata", "clam.impl.zip", "ClamAV-Test-File", 0},
-	{"testdata", "clam.iso", "ClamAV-Test-File", 352},
-	{"testdata", "clam.mail", "ClamAV-Test-File", 0},
-	{"testdata", "clam.newc.cpio", "ClamAV-Test-File", 0},
-	{"testdata", "clam.odc.cpio", "ClamAV-Test-File", 0},
-	{"testdata", "clam.ole.doc", "ClamAV-Test-File", 0},
-	{"testdata", "clam.pdf", "ClamAV-Test-File", 0},
-	{"testdata", "clam.ppt", "ClamAV-Test-File", 0},
-	{"testdata", "clam.sis", "ClamAV-Test-File", 0},
-	{"testdata", "clam.tar.gz", "ClamAV-Test-File", 0},
-	{"testdata", "clam.tnef", "ClamAV-Test-File", 0},
-	{"testdata", "clam.zip", "ClamAV-Test-File", 0},
-	{"testdata", "clam_IScab_ext.exe", "ClamAV-Test-File", 5092},
-	{"testdata", "clam_IScab_int.exe", "ClamAV-Test-File", 4540},
-	{"testdata", "clam_ISmsi_ext.exe", "ClamAV-Test-File", 1192},
-	{"testdata", "clam_ISmsi_int.exe", "ClamAV-Test-File", 1196},
-	{"testdata", "clam_cache_emax.tgz", "ClamAV-Test-File", 56},
-	{"testdata", "clamjol.iso", "ClamAV-Test-File", 364},
+	{"testdata", "clam-aspack.exe", "Clamav.Test.File-6", 20},
+	{"testdata", "clam-fsg.exe", "Clamav.Test.File-6", 4},
+	{"testdata", "clam-mew.exe", "Clamav.Test.File-6", 20},
+	{"testdata", "clam-nsis.exe", "Clamav.Test.File-6", 48},
+	{"testdata", "clam-pespin.exe", "Clamav.Test.File-6", 20},
+	{"testdata", "clam-petite.exe", "Clamav.Test.File-6", 8},
+	{"testdata", "clam-upack.exe", "Clamav.Test.File-6", 16},
+	{"testdata", "clam-upx.exe", "Clamav.Test.File-6", 20},
+	{"testdata", "clam-v2.rar", "Clamav.Test.File-6", 0},
+	{"testdata", "clam-v3.rar", "Clamav.Test.File-6", 0},
+	{"testdata", "clam-wwpack.exe", "Clamav.Test.File-6", 24},
+	{"testdata", "clam-yc.exe", "Clamav.Test.File-6", 24},
+	{"testdata", "clam.7z", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.arj", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.bin-be.cpio", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.bin-le.cpio", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.bz2.zip", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.cab", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.chm", "Clamav.Test.File-6", 4},
+	{"testdata", "clam.d64.zip", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.ea05.exe", "Clamav.Test.File-6", 232},
+	{"testdata", "clam.ea06.exe", "Clamav.Test.File-6", 268},
+	{"testdata", "clam.exe", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.binhex", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.bz2", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.html", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.mbox.base64", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.mbox.uu", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.rtf", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.exe.szdd", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.impl.zip", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.iso", "Clamav.Test.File-6", 352},
+	{"testdata", "clam.mail", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.newc.cpio", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.odc.cpio", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.ole.doc", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.pdf", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.ppt", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.sis", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.tar.gz", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.tnef", "Clamav.Test.File-6", 0},
+	{"testdata", "clam.zip", "Clamav.Test.File-6", 0},
+	{"testdata", "clam_IScab_ext.exe", "Clamav.Test.File-6", 5092},
+	{"testdata", "clam_IScab_int.exe", "Clamav.Test.File-6", 4540},
+	{"testdata", "clam_ISmsi_ext.exe", "Clamav.Test.File-6", 1192},
+	{"testdata", "clam_ISmsi_int.exe", "Clamav.Test.File-6", 1196},
+	{"testdata", "clam_cache_emax.tgz", "Clamav.Test.File-6", 56},
+	{"testdata", "clamjol.iso", "Clamav.Test.File-6", 364},
 }
 
 func testInitAll() (*Engine, error) {
@@ -379,7 +384,7 @@ func TestScan(t *testing.T) {
 
 	found := false
 	for _, v := range scanFiles {
-		virus, scan, err := eng.ScanFile(v.dir+"/"+v.file, ScanStdopt)
+		virus, scan, err := eng.ScanFile(v.dir+"/"+v.file, stdopts)
 		if err != nil {
 			if virus != "" {
 				if virus != v.name {
@@ -404,7 +409,7 @@ func benchmarkScanFile(b *testing.B, path string) {
 	b.StartTimer()
 
 	for i := 0; i < b.N; i++ {
-		virus, scan, err := eng.ScanFile(path, ScanStdopt)
+		virus, scan, err := eng.ScanFile(path, stdopts)
 		b.SetBytes(int64(scan * CountPrecision))
 		if virus == "" {
 			b.Fatalf("not a virus: %v", err)

@@ -15,9 +15,9 @@ have compiled ClamAV in a non-standard directory you can use the following argum
 	CGO_CFLAGS=-I/path/to/include CGO_LDFLAGS=-L/path/to/lib go install
 
 For example, on Mountain Lion, after compiling ClamAV by hand, the library gets installed in 
-`/usr/local/lib/x86_64`. The following command then works to compile the wrappers:
+`/usr/local/lib`. The following command then works to compile the wrappers:
 
-	CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS=-L/usr/local/lib/x86_64 go install
+	CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS=-L/usr/local/lib go install
 
 Run `go build` and, if you have copied the virus files from ClamAV's test/ subdirectory, you can 
 run `go test`. Run `go test -test.bench=Bench` to run the benchmarks.
